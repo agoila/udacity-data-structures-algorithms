@@ -1,0 +1,153 @@
+***********************Task0.py -- O(1)
+
+Accessing texts[0]: This is accessing the first element of the list texts. List indexing in Python is O(1) (constant time).
+
+Accessing calls[-1]: This is accessing the last element of the list calls. List indexing with negative indices in Python is also O(1) (constant time).
+
+Formatting and printing strings: The format method and the print function themselves are O(1) operations, but they depend on the length of the strings involved. However, since these are fixed and not dependent on the size of the input lists, we can consider them O(1) for this context.
+
+Given these points, the overall time complexity of the provided code is:
+O(1)+O(1)=O(1)
+
+Therefore, the time complexity of the code is O(1) (constant time).
+
+***********************Task1.py -- O(u(n+m))
+
+Outer Loops:
+The first for loop iterates over all texts. If there are n text records, this loop runs n times.
+The second for loop iterates over all calls. If there are m call records, this loop runs m times.
+
+Inner Loops:
+Each text record (record1) and each call record (record2) contains two numbers (record1[0:2] and record2[0:2]). So, the inner loop runs twice for each record.
+
+Checking for Uniqueness and Appending:
+The if number1 not in unique_nums and if number2 not in unique_nums checks if a number is already in the unique_nums list.
+The in operation on a list has a time complexity of O(k), where k is the length of the list at that point.
+The append operation is O(1).
+
+Time Complexity Calculation:
+Let n be the number of text records.
+Let m be the number of call records.
+Let u be the total number of unique numbers.
+For each text record, the inner loop runs twice, and the in check runs up to u times. This gives us an O(n * 2 * u) complexity for the texts loop.
+For each call record, the inner loop runs twice, and the in check runs up to u times. This gives us an O(m * 2 * u) complexity for the calls loop.
+
+Combining both, the overall time complexity is:
+
+O(u(n+m))
+This represents a worst-case scenario where each number is unique and not found in unique_nums until the end.
+
+***********************Task2.py -- O(m)
+
+Initialization:
+nums_and_timers = {}: Initializing an empty dictionary. This is an O(1) operation.
+
+Outer Loop:
+for record in calls:: This loop iterates over each call record. Let m be the number of call records. This loop runs m times.
+
+Inner Loop:
+for number in record[0:2]: This loop iterates over the first two elements (phone numbers) of each call record. This loop runs 2 times for each call record.
+
+Checking and Updating the Dictionary:
+if number not in nums_and_timers: Checking membership in a dictionary is an O(1) operation on average.
+nums_and_timers[number] = int(record[-1]): Setting a dictionary value is an O(1) operation.
+else: nums_and_timers[number] += int(record[-1]): Updating a dictionary value is an O(1) operation.
+Therefore, the inner operations are all O(1) on average, and they are performed twice for each call record.
+
+Finding the Maximum:
+max(nums_and_timers, key=nums_and_timers.get): The max function iterates over all the keys in the dictionary, which is n in size, where n is the number of unique phone numbers. Finding the maximum value involves O(n) operations.
+nums_and_timers[max_number]: Accessing a dictionary value by key is O(1).
+
+Time Complexity Calculation
+
+The outer loop runs m times.
+The inner loop runs 2 times for each call record, performing O(1) operations inside.
+Thus, the time complexity for populating the dictionary is:
+
+O(m⋅2⋅1)=O(m)
+
+Finding the maximum key in the dictionary has a time complexity of:
+
+O(n)
+
+Combining these, the overall time complexity of the code is:
+
+O(m)+O(n)
+
+Since n (number of unique phone numbers) is generally less than or equal to m (number of call records), the overall time complexity can be simplified to:
+
+O(m)
+
+Conclusion
+The time complexity of the provided code is 
+
+O(m), where m is the number of call records.
+
+***********************Task3.py -- O(m)+O(klogk)
+
+The loop over calls results in:
+
+O(m)
+
+Inside the loop, the most complex operation is record[1].index(')'), which is O(k) where k is the length of record[1]. However, this operation only happens if record[1][0] == '('. Other operations inside the loop are O(1).
+
+Sorting and printing num_entries results in:
+
+O(klogk)+O(k)=O(klogk)
+
+Combining these, the overall time complexity is:
+
+O(m)+O(klogk)
+
+Conclusion
+The time complexity of the provided code is 
+
+O(m)+O(klogk), where m is the number of call records and k is the number of unique codes added to num_entries.
+
+***********************Task4.py -- O(n)+O(m)+O(klogk)
+
+Initialization:
+callers = set(): Initializing an empty set. This is an O(1) operation.
+call_receivers = set(): Initializing another empty set. This is an O(1) operation.
+text_numbers = set(): Initializing another empty set. This is an O(1) operation.
+
+First Loop (Processing Texts):
+for record in texts:: This loop iterates over each text record. Let n be the number of text records. This loop runs n times.
+text_numbers.add(record[0]): Adding an element to a set is an O(1) operation on average.
+text_numbers.add(record[1]): Adding another element to a set is also an O(1) operation on average.
+So, the complexity for this loop is:
+
+O(n)
+
+Second Loop (Processing Calls):
+for record in calls:: This loop iterates over each call record. Let m be the number of call records. This loop runs m times.
+callers.add(record[0]): Adding an element to a set is an O(1) operation on average.
+call_receivers.add(record[1]): Adding another element to a set is also an O(1) operation on average.
+So, the complexity for this loop is:
+
+O(m)
+
+Third Loop (Checking and Removing Callers):
+for number in list(callers):: This loop iterates over each element in callers. Let k be the number of unique caller numbers. This loop runs k times.
+if number in call_receivers and number in text_numbers:: Checking membership in a set is an O(1) operation on average.
+callers.remove(number): Removing an element from a set is an O(1) operation on average.
+So, the complexity for this loop is:
+
+O(k)
+
+Printing the Results:
+sorted(callers): Sorting a list of k elements has a time complexity of O(k log k).
+print('\n'.join(sorted(callers))): Joining the list into a single string and printing it involves iterating over k elements, which is O(k).
+Time Complexity Calculation
+Combining these, the overall time complexity is:
+
+O(n)+O(m)+O(k)+O(klogk)
+
+Conclusion
+The time complexity of the code is 
+
+O(n)+O(m)+O(klogk), where:
+
+n is the number of text records,
+m is the number of call records,
+k is the number of unique caller numbers.
